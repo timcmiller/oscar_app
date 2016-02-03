@@ -15,8 +15,10 @@ let {
   StyleSheet,
   Text,
   View,
+  TouchableHighlight,
 } = React;
 
+// var REQUEST_URL = 'http://oscarnom-api.herokuapp.com/api/movies';
 var REQUEST_URL = 'https://raw.githubusercontent.com/facebook/react-native/master/docs/MoviesExample.json';
 
 var MOCKED_MOVIES_DATA = [
@@ -32,6 +34,7 @@ class FirstExperience extends React.Component {
         rowHasChanged: (row1, row2) => row1 !== row2,
       }),
       loaded: false,
+      showMovieInfo: false,
     };
   }
 
@@ -52,14 +55,19 @@ class FirstExperience extends React.Component {
   }
 
   render() {
+
     if(!this.state.loaded) {
       return this.renderLoadingView();
+    }
+
+    if(this.state.showMovieInfo) {
+      return this.renderMovieInfo()
     }
 
     return (
       <ListView
         dataSource={this.state.dataSource}
-        renderRow={this.renderMovie}
+        renderRow={this.renderMovie.bind(this)}
         style={styles.listView}/>
     );
   }
@@ -74,18 +82,43 @@ class FirstExperience extends React.Component {
     );
   }
 
-  renderMovie(movie) {
-
+  renderMovieInfo() {
     return (
-      <View style={styles.container}>
+      <TouchableHighlight style={styles.container} onPress={this._onPressMovieInfo.bind(this)}>
+        <View>
+          <Text>
+            You just clicked on
+            {this.state.movie.title}
+          </Text>
+        </View>
+      </TouchableHighlight>
+      );
+  }
+
+  _onPressMovieInfo() {
+    this.setState({ showMovieInfo: !this.state.showMovieInfo });
+  }
+
+  _onPressMovie(){
+    this.setState({ showMovieInfo: !this.state.showMovieInfo, movie: this.movie});
+  }
+
+  renderMovie(movie) {
+    this.movie = movie;
+    return (
+      <View
+      style={styles.container}
+      >
         <Image
           source={{uri: movie.posters.thumbnail}}
           style={styles.thumbnail}
         />
-        <View style={styles.rightContainer}>
-          <Text style={styles.title}>{movie.title}</Text>
-          <Text style={styles.year}>{movie.year}</Text>
-        </View>
+        <TouchableHighlight style={styles.rightContainer} onPress={this._onPressMovie.bind(this)}>
+          <View>
+            <Text style={styles.title}>{movie.title}</Text>
+            <Text style={styles.year}>{movie.year}</Text>
+          </View>
+        </TouchableHighlight>
       </View>
     );
   }

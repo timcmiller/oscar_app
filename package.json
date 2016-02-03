@@ -5,8 +5,6 @@
   "main": "main.js",
   "author": null,
   "dependencies": {
-    "express": "^4.13.4",
-    "mongoose": "^4.3.7",
     "react-native": "github:exponentjs/react-native#2016-01-02"
   }
 }
