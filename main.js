@@ -18,6 +18,8 @@ let {
   TouchableHighlight,
 } = React;
 
+var MovieInfo = require('movie_info.js');
+
 // var REQUEST_URL = 'http://oscarnom-api.herokuapp.com/api/movies';
 var REQUEST_URL = 'https://raw.githubusercontent.com/facebook/react-native/master/docs/MoviesExample.json';
 
@@ -86,10 +88,7 @@ class FirstExperience extends React.Component {
     return (
       <TouchableHighlight style={styles.container} onPress={this._onPressMovieInfo.bind(this)}>
         <View>
-          <Text>
-            You just clicked on
-            {this.state.movie.title}
-          </Text>
+          <MovieInfo {...this.state}/>
         </View>
       </TouchableHighlight>
       );
