@@ -18,7 +18,7 @@ let {
   TouchableHighlight,
 } = React;
 
-var MovieInfo = require('movie_info.js');
+let MovieInfo = require('./movie_info');
 
 // var REQUEST_URL = 'http://oscarnom-api.herokuapp.com/api/movies';
 var REQUEST_URL = 'https://raw.githubusercontent.com/facebook/react-native/master/docs/MoviesExample.json';
