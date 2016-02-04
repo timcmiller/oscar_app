@@ -26,6 +26,8 @@ var REQUEST_URL = 'https://raw.githubusercontent.com/facebook/react-native/maste
 var MOCKED_MOVIES_DATA = [
   {title: 'Title', year: '2015', posters: {thumbnail: 'http://i.imgur.com/UePbdph.jpg'}},
 ];
+var MOCK_LIST = ['Best Picture', 'Best Actor', 'Best Support Actor'];
+
 
 class FirstExperience extends React.Component {
 
@@ -37,6 +39,7 @@ class FirstExperience extends React.Component {
       }),
       loaded: false,
       showMovieInfo: false,
+      list: MOCK_LIST,
     };
   }
 
@@ -54,6 +57,14 @@ class FirstExperience extends React.Component {
         });
       })
       .done();
+  }
+
+  _onPressMovieInfo() {
+    this.setState({ showMovieInfo: !this.state.showMovieInfo });
+  }
+
+  _onPressMovie(movie){
+    this.setState({ showMovieInfo: !this.state.showMovieInfo, movie: movie});
   }
 
   render() {
@@ -86,33 +97,19 @@ class FirstExperience extends React.Component {
 
   renderMovieInfo() {
     return (
-      <TouchableHighlight style={styles.container} onPress={this._onPressMovieInfo.bind(this)}>
-        <View>
-          <MovieInfo {...this.state}/>
-        </View>
-      </TouchableHighlight>
+      <MovieInfo {...this.state} _onPressMovieInfo={() => this._onPressMovieInfo()}/>
       );
   }
 
-  _onPressMovieInfo() {
-    this.setState({ showMovieInfo: !this.state.showMovieInfo });
-  }
-
-  _onPressMovie(){
-    this.setState({ showMovieInfo: !this.state.showMovieInfo, movie: this.movie});
-  }
-
   renderMovie(movie) {
-    this.movie = movie;
     return (
       <View
       style={styles.container}
       >
         <Image
           source={{uri: movie.posters.thumbnail}}
-          style={styles.thumbnail}
-        />
-        <TouchableHighlight style={styles.rightContainer} onPress={this._onPressMovie.bind(this)}>
+          style={styles.thumbnail}/>
+        <TouchableHighlight style={styles.rightContainer} onPress={() => this._onPressMovie(movie)}>
           <View>
             <Text style={styles.title}>{movie.title}</Text>
             <Text style={styles.year}>{movie.year}</Text>

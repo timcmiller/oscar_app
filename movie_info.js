@@ -9,16 +9,31 @@ let {
   StyleSheet,
   Text,
   View,
+  TouchableHighlight,
 } = React;
+
+let Nominations = require('./nominations');
 
 class MovieInfo extends React.Component{
 
   render() {
     return (
-      <Text>
-        You Just clicked on
-        {this.props.movie.title}
-      </Text>
+      <TouchableHighlight
+      onPress={this.props._onPressMovieInfo}>
+        <View style={[styles.container, styles.vert]}>
+          <View style={[styles.container, styles.hor]}>
+            <Image
+              source={{uri: this.props.movie.posters.thumbnail}}
+              style={styles.thumbnail}/>
+            <Text>Nominations:{'\n'}</Text>
+            <Nominations {...this.props} />
+          </View>
+          <View>
+            <Text style={styles.title}>{this.props.movie.title}</Text>
+            <Text style={styles.year}>{this.props.movie.year}</Text>
+          </View>
+        </View>
+      </TouchableHighlight>
     );
   }
 }
@@ -26,16 +41,29 @@ class MovieInfo extends React.Component{
 var styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
     backgroundColor: '#F5FCFF',
+    paddingTop: 20,
   },
-
+  vert: {
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+  },
+  hor: {
+    flexDirection: 'row',
+    alignItems: 'stretch'
+  },
   title: {
     fontSize: 20,
     marginBottom: 8,
     textAlign: 'center',
+  },
+  year: {
+    textAlign: 'center',
+  },
+  thumbnail: {
+    width: 53,
+    height: 81,
+    alignSelf: 'flex-end',
   },
 });
 
