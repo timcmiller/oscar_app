@@ -39,7 +39,6 @@ class FirstExperience extends React.Component {
       }),
       loaded: false,
       showMovieInfo: false,
-      list: MOCK_LIST,
     };
   }
 
