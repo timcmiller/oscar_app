@@ -18,7 +18,9 @@ let {
   TouchableHighlight,
 } = React;
 
+let Header = require('./header');
 let MovieInfo = require('./movie_info');
+let lodash = require('lodash');
 
 var REQUEST_URL = 'http://oscarnom-api.herokuapp.com/api/movies';
 // var REQUEST_URL = 'https://raw.githubusercontent.com/facebook/react-native/master/docs/MoviesExample.json';
@@ -28,17 +30,17 @@ var MOCKED_MOVIES_DATA = [
 ];
 var MOCK_LIST = ['Best Picture', 'Best Actor', 'Best Support Actor'];
 
-
 class FirstExperience extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      dataSource: new ListView.DataSource({
-        rowHasChanged: (row1, row2) => row1 !== row2,
-      }),
+      dataSource: new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2}),
       loaded: false,
       showMovieInfo: false,
+      showFilter: false,
+      movieData: [],
+      showPicture: false,
     };
   }
 
@@ -51,6 +53,7 @@ class FirstExperience extends React.Component {
       .then((response) => response.json())
       .then((responseData) => {
         this.setState({
+          movieData: responseData.movies,
           dataSource: this.state.dataSource.cloneWithRows(responseData.movies),
           loaded: true,
         });
@@ -63,8 +66,33 @@ class FirstExperience extends React.Component {
   }
 
   _onPressMovie(movie){
-    this.setState({ showMovieInfo: !this.state.showMovieInfo, movie: movie});
+    this.setState({ showMovieInfo: !this.state.showMovieInfo, showFilter: false, movie });
   }
+
+  _onPicturePress() {
+    this.setState({ showPicture: !this.state.showPicture });
+  }
+
+  _onPressFilter(filter) {
+    var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+    if(!filter) {
+      this.setState({dataSource: ds.cloneWithRows(this.state.movieData)});
+      return;
+    }
+    filter = 'Best ' + filter;
+    this.setState({ dataSource: ds.cloneWithRows(
+      this.state.movieData.filter(function(movie) {
+        if(lodash.includes(movie.nominations.map(function(nom){
+          return nom.split(':')[0];
+        }), filter)) return movie;
+      })
+    ), showFilter: false});
+  }
+
+  expandFilter() {
+    this.setState({ showFilter: !this.state.showFilter });
+  }
+
 
   render() {
 
@@ -79,7 +107,13 @@ class FirstExperience extends React.Component {
     return (
       <ListView
         dataSource={this.state.dataSource}
-        renderRow={this.renderMovie.bind(this)}
+        renderHeader={() => <Header
+          expandFilter={this.expandFilter.bind(this)}
+          pressFilter={this._onPressFilter.bind(this)}
+          {...this.state}
+          back={'Clear'}
+          onBackPress={() => this._onPressFilter()} />}
+        renderRow={(movie) => this.renderMovie(movie)}
         style={styles.listView}/>
     );
   }
@@ -96,22 +130,27 @@ class FirstExperience extends React.Component {
 
   renderMovieInfo() {
     return (
-      <MovieInfo {...this.state} _onPressMovieInfo={() => this._onPressMovieInfo()}/>
+      <MovieInfo
+      {...this.state}
+      _onPressMovieInfo={() => this._onPressMovieInfo()}
+      _onPicturePress={() => this._onPicturePress()}
+      _onPressFilter={() => this._onPressFilter()}
+      expandFilter={this.expandFilter.bind(this)}/>
       );
   }
 
   renderMovie(movie) {
+    var text = ' Nomination';
+    if(movie.nominations.length > 1) text += 's';
     return (
-      <View
-      style={styles.container}
-      >
+      <View style={styles.container}>
         <Image
           source={{uri: movie.posters.thumbnail}}
           style={styles.thumbnail}/>
         <TouchableHighlight style={styles.rightContainer} onPress={() => this._onPressMovie(movie)}>
           <View>
             <Text style={styles.title}>{movie.title}</Text>
-            <Text style={styles.year}>{movie.year}</Text>
+            <Text style={styles.year}>{movie.nominations.length + text}</Text>
           </View>
         </TouchableHighlight>
       </View>

@@ -13,26 +13,48 @@ let {
 } = React;
 
 let Nominations = require('./nominations');
+let Header = require('./header');
 
 class MovieInfo extends React.Component{
 
   render() {
+
+    if(this.props.showPicture) return this.renderPicture(this.props.movie);
+    var text = ' Nomination';
+    if(this.props.movie.nominations.length > 1) text += 's';
     return (
-      <TouchableHighlight
-      onPress={this.props._onPressMovieInfo}>
+      <View style={styles.padding}>
+        <Header
+        onBackPress={() => this.props._onPressMovieInfo()}
+        pressFilter={() => this.props._onPressFilter}
+        back={'Back'}
+        expandFilter={this.props.expandFilter}
+        {...this.props}/>
         <View style={[styles.container, styles.vert]}>
-          <View style={[styles.container, styles.hor]}>
+          <View>
+            <Text style={styles.title}>{this.props.movie.title}</Text>
+            <Text style={styles.year}>{this.props.movie.nominations.length + text}</Text>
+          </View>
+          <TouchableHighlight onPress={() => this.props._onPicturePress()}>
             <Image
               source={{uri: this.props.movie.posters.thumbnail}}
               style={styles.thumbnail}/>
-            <Text>Nominations:{'\n'}</Text>
+          </TouchableHighlight>
+          <Text style={styles.title}>Nominations:</Text>
+          <View style={styles.hor}>
             <Nominations {...this.props} />
           </View>
-          <View>
-            <Text style={styles.title}>{this.props.movie.title}</Text>
-            <Text style={styles.year}>{this.props.movie.year}</Text>
-          </View>
         </View>
+      </View>
+    );
+  }
+
+  renderPicture() {
+    return (
+      <TouchableHighlight onPress={() => this.props._onPicturePress()}>
+        <Image
+          source={{uri: this.props.movie.posters.thumbnail}}
+          style={styles.fullScreen}/>
       </TouchableHighlight>
     );
   }
@@ -43,14 +65,13 @@ var styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#F5FCFF',
     paddingTop: 20,
+    justifyContent: 'center'
   },
   vert: {
     flexDirection: 'column',
-    justifyContent: 'space-between',
   },
   hor: {
-    flexDirection: 'row',
-    alignItems: 'stretch'
+    alignSelf: 'center'
   },
   title: {
     fontSize: 20,
@@ -61,9 +82,17 @@ var styles = StyleSheet.create({
     textAlign: 'center',
   },
   thumbnail: {
-    width: 53,
-    height: 81,
-    alignSelf: 'flex-end',
+    width: 160,
+    height: 244,
+    alignSelf: 'center',
+  },
+  padding: {
+    paddingTop: 20,
+  },
+  fullScreen: {
+    width: 480,
+    height: 732,
+    alignSelf: 'center',
   },
 });
 
