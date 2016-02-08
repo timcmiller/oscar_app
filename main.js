@@ -74,19 +74,23 @@ class FirstExperience extends React.Component {
   }
 
   _onPressFilter(filter) {
+    this.setState({ showFilter: false, showPicture: false, showMovieInfo: false });
     var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+
     if(!filter) {
       this.setState({dataSource: ds.cloneWithRows(this.state.movieData)});
       return;
     }
-    filter = 'Best ' + filter;
+
+    filter = filter.split(':')[0];
+
     this.setState({ dataSource: ds.cloneWithRows(
       this.state.movieData.filter(function(movie) {
         if(lodash.includes(movie.nominations.map(function(nom){
           return nom.split(':')[0];
         }), filter)) return movie;
       })
-    ), showFilter: false});
+    )});
   }
 
   expandFilter() {
@@ -134,7 +138,7 @@ class FirstExperience extends React.Component {
       {...this.state}
       _onPressMovieInfo={() => this._onPressMovieInfo()}
       _onPicturePress={() => this._onPicturePress()}
-      _onPressFilter={() => this._onPressFilter()}
+      _onPressFilter={this._onPressFilter.bind(this)}
       expandFilter={this.expandFilter.bind(this)}/>
       );
   }

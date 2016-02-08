@@ -26,7 +26,7 @@ class MovieInfo extends React.Component{
       <View style={styles.padding}>
         <Header
         onBackPress={() => this.props._onPressMovieInfo()}
-        pressFilter={() => this.props._onPressFilter}
+        pressFilter={this.props._onPressFilter}
         back={'Back'}
         expandFilter={this.props.expandFilter}
         {...this.props}/>
@@ -44,6 +44,12 @@ class MovieInfo extends React.Component{
           <View style={styles.hor}>
             <Nominations {...this.props} />
           </View>
+          <Text style={styles.title}>
+            Synopsis:
+          </Text>
+          <Text>
+            {movie.synopsis}
+          </Text>
         </View>
       </View>
     );
@@ -82,8 +88,8 @@ var styles = StyleSheet.create({
     textAlign: 'center',
   },
   thumbnail: {
-    width: 160,
-    height: 244,
+    width: 128,
+    height: 196,
     alignSelf: 'center',
   },
   padding: {

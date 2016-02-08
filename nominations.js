@@ -6,6 +6,7 @@ let {
   ListView,
   Text,
   View,
+  StyleSheet,
 } = React;
 
 class Nominations extends React.Component{
@@ -15,9 +16,10 @@ class Nominations extends React.Component{
     return (
       <ListView
         dataSource={ds.cloneWithRows(this.props.movie.nominations)}
-        renderRow={(row) => <Text>{row}</Text>}/>
+        renderRow={(row) => <Text onPress={() => this.props._onPressFilter(row)}>Best {row}</Text>}/>
     );
   }
 }
+
 
 module.exports = Nominations;
