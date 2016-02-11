@@ -6,6 +6,8 @@
   "author": null,
   "dependencies": {
     "lodash": "^4.2.1",
-    "react-native": "exponentjs/react-native#2016-01-02"
+    "react-native": "exponentjs/react-native#2016-01-02",
+    "redux": "^3.3.1",
+    "redux-thunk": "^1.0.3"
   }
 }
