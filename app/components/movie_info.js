@@ -1,21 +1,20 @@
 'use strict';
-
-let React = require('react-native');
-let {
+import React,
+{
   AppRegistry,
   Component,
   Image,
   ListView,
-  StyleSheet,
   Text,
   View,
   TouchableHighlight,
-} = React;
+} from 'react-native';
 
+let styles = require('../styles/movie_info_styles');
 let Nominations = require('./nominations');
 let Header = require('./header');
 
-class MovieInfo extends React.Component{
+module.exports = class MovieInfo extends React.Component{
 
   render() {
 
@@ -65,44 +64,5 @@ class MovieInfo extends React.Component{
     );
   }
 }
-
-var styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#F5FCFF',
-    paddingTop: 20,
-    justifyContent: 'center'
-  },
-  vert: {
-    flexDirection: 'column',
-  },
-  hor: {
-    alignSelf: 'center'
-  },
-  title: {
-    fontSize: 20,
-    marginBottom: 8,
-    textAlign: 'center',
-  },
-  year: {
-    textAlign: 'center',
-  },
-  thumbnail: {
-    width: 128,
-    height: 196,
-    alignSelf: 'center',
-  },
-  padding: {
-    paddingTop: 20,
-    backgroundColor: '#F5FCFF',
-  },
-  fullScreen: {
-    width: 480,
-    height: 732,
-    alignSelf: 'center',
-  },
-});
-
-module.exports = MovieInfo;
 
 

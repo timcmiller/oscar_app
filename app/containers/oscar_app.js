@@ -1,17 +1,17 @@
-let React = require('react-native');
-let {
+import React,
+{
   AppRegistry,
   Component,
   Image,
   ListView,
-  StyleSheet,
   Text,
   View,
   TouchableHighlight,
-} = React;
+} from 'react-native';
 
-let Header = require('./header');
-let MovieInfo = require('./movie_info');
+let styles = require('../styles/base_styles');
+let Header = require('../components/header');
+let MovieInfo = require('../components/movie_info');
 let lodash = require('lodash');
 
 var REQUEST_URL = 'http://oscarnom-api.herokuapp.com/api/movies';
@@ -153,33 +153,3 @@ module.exports = class FirstExperience extends React.Component {
     );
   }
 }
-
-
-var styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  rightContainer: {
-    flex: 1,
-  },
-  title: {
-    fontSize: 20,
-    marginBottom: 8,
-    textAlign: 'center',
-  },
-  year: {
-    textAlign: 'center',
-  },
-  thumbnail: {
-    width: 53,
-    height: 81,
-  },
-  listView: {
-    paddingTop: 20,
-    backgroundColor: '#F5FCFF',
-  },
-});

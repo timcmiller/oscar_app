@@ -1,4 +1,4 @@
-let types = require('./../constants/actions_types');
+let types = require('./../constants/action_types');
 
 const initialState = [{
   loaded: false,

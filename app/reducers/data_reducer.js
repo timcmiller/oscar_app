@@ -3,7 +3,7 @@ let {
   ListView,
 } = React;
 
-let types = require('./../constants/actions_types');
+let types = require('./../constants/action_types');
 
 const initialState = [{
   dataSource: new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2}),

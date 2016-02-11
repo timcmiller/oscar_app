@@ -7,9 +7,9 @@ let rootReducer = require('../reducers/combine_reducers');
 let OscarApp = require('./oscar_app');
 
 const createStoreWithMiddleware = applyMiddleware(thunk)(createStore);
-const store = createStoreWithMiddleware(reducer);
+const store = createStoreWithMiddleware(rootReducer);
 
-module.exports = class App extends Componet {
+module.exports = class App extends Component {
   render() {
     return (
       <Provider store={store}>

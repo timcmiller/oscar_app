@@ -1,15 +1,14 @@
-'use strict';
-
-let React = require('react-native');
-let {
+import React,
+{
   Component,
   ListView,
   Text,
   View,
-  StyleSheet,
-} = React;
+} from 'react-native';
 
-class Nominations extends React.Component{
+let styles = require('../styles/nominations_styles');
+
+module.exports = class Nominations extends React.Component{
 
   render() {
     var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
@@ -21,12 +20,3 @@ class Nominations extends React.Component{
   }
 }
 
-var styles = StyleSheet.create({
-  title: {
-    fontSize: 18,
-    textAlign: 'center',
-  },
-});
-
-
-module.exports = Nominations;

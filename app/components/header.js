@@ -1,20 +1,17 @@
-'use strict';
-
-let React = require('react-native');
-
-let {
+import React,
+{
   Component,
   Image,
   ListView,
-  StyleSheet,
   Text,
   View,
   TouchableHighlight,
-} = React;
+} from 'react-native';
 
+let styles = require('../styles/header_styles');
 var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 
-class Header extends React.Component{
+module.exports = class Header extends React.Component{
 
   _onPressFilter() {
     this.props.expandFilter();
@@ -69,34 +66,3 @@ class Header extends React.Component{
     );
   }
 }
-
-var styles = StyleSheet.create({
-  header: {
-    flex: 1,
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'space-between',
-    backgroundColor: 'grey',
-    paddingTop: 20,
-    height: 60,
-  },
-  filter: {
-    flex: 1,
-    flexDirection: 'column',
-  },
-  headingText: {
-    fontSize: 20,
-  },
-  filterText: {
-    flex: 2,
-    flexDirection: 'column',
-  },
-  big: {
-    height: 1000,
-  },
-  expanded: {
-    backgroundColor: 'grey',
-  },
-});
-
-module.exports = Header;
