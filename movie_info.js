@@ -48,7 +48,7 @@ class MovieInfo extends React.Component{
             Synopsis:
           </Text>
           <Text>
-            {movie.synopsis}
+            {this.props.movie.synopsis}
           </Text>
         </View>
       </View>
@@ -94,6 +94,7 @@ var styles = StyleSheet.create({
   },
   padding: {
     paddingTop: 20,
+    backgroundColor: '#F5FCFF',
   },
   fullScreen: {
     width: 480,

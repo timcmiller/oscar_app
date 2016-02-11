@@ -62,7 +62,7 @@ class FirstExperience extends React.Component {
   }
 
   _onPressMovieInfo() {
-    this.setState({ showMovieInfo: !this.state.showMovieInfo });
+    this.setState({ showMovieInfo: !this.state.showMovieInfo, showFilter: false });
   }
 
   _onPressMovie(movie){

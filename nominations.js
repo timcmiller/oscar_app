@@ -16,10 +16,17 @@ class Nominations extends React.Component{
     return (
       <ListView
         dataSource={ds.cloneWithRows(this.props.movie.nominations)}
-        renderRow={(row) => <Text onPress={() => this.props._onPressFilter(row)}>Best {row}</Text>}/>
+        renderRow={(row) => <Text style={styles.title} onPress={() => this.props._onPressFilter(row)}>Best {row}</Text>}/>
     );
   }
 }
+
+var styles = StyleSheet.create({
+  title: {
+    fontSize: 18,
+    textAlign: 'center',
+  },
+});
 
 
 module.exports = Nominations;
