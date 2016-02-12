@@ -9,7 +9,7 @@ let OscarApp = require('./oscar_app');
 const createStoreWithMiddleware = applyMiddleware(thunk)(createStore);
 const store = createStoreWithMiddleware(rootReducer);
 
-module.exports = class App extends Component {
+export default class App extends Component {
   render() {
     return (
       <Provider store={store}>

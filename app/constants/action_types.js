@@ -1,4 +1,5 @@
 // network actions
-module.exports.FETCH_MOVIES = 'FETCH_MOVIES';
+export const FETCH_MOVIES = 'FETCH_MOVIES';
 
 // ui actions
+export const IS_LOADED = 'IS_LOADED';

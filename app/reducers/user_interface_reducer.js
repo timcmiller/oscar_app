@@ -1,19 +1,23 @@
-let types = require('./../constants/action_types');
+import * as types from './../constants/action_types';
 
-const initialState = [{
+const initialState = {
   loaded: false,
   showMovieInfo: false,
   showFilter: false,
   showPicture: false
-}];
+};
 
-module.exports = function userInterface(state, action) {
-  let previousState = (state ? state : initialState);
+export default function userInterface(state = initialState, action) {
 
   switch(action.type) {
 
+    case 'IS_LOADED':
+        return {
+            ...state,
+            loaded: true
+        };
 
     default:
       return previousState;
   }
-};
+}
