@@ -1,10 +1,7 @@
 import * as types from './../constants/action_types';
 
 const initialState = {
-  loaded: false,
-  showMovieInfo: false,
-  showFilter: false,
-  showPicture: false
+  loaded: false
 };
 
 export default function userInterface(state = initialState, action) {

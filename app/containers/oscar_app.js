@@ -12,23 +12,25 @@ class OscarApp extends Component {
   }
 
   render() {
-    const { data, UI, dispatch } = this.props
+    const { actions } = this.props
     return (
       <MainView
-      data={data}
-      UI={UI}
-      {...bindActionCreators(userInterfaceActions, dispatch)} />
+      {...this.props}
+      actions={actions} />
     );
   }
 }
 
 function mapStateToProps(state) {
   return {
-    data: state.dataReducer,
-    UI: state.userInterfaceReducer
+    state: state.userInterfaceActions
   };
 }
 
-module.exports = connect(
-  mapStateToProps
+export default connect(state => ({
+  state:  userInterfaceActions
+  }),
+  (dispatch) => ({
+    actions: bindActionCreators(userInterfaceActions, dispatch)
+  })
 )(OscarApp);

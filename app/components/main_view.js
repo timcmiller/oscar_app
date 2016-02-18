@@ -47,8 +47,9 @@ module.exports = class MainView extends React.Component {
           movieData: responseData.movies,
           dataSource: this.state.dataSource.cloneWithRows(responseData.movies),
         });
+        this.props.actions.isLoaded();
       })
-      .done(this.props.isLoaded());
+      .done();
   }
 
   _onPressMovieInfo() {
