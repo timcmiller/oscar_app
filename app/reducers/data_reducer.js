@@ -1,21 +1,49 @@
-let React = require('react-native');
-let {
+import React,
+{
   ListView,
-} = React;
+} from 'react-native';
+import * as types from './../constants/action_types';
 
-let types = require('./../constants/action_types');
-
-const initialState = [{
+const initialState = {
   dataSource: new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2}),
-  movieData: []
-}];
+  movieData: [],
+  currentMovie: [],
+  filter: '88th Academy Awards',
+  isFetching: true
+};
 
-module.exports = function data(state, action) {
-  let previousState = (state ? state : initialState);
+export default function(state = initialState, action) {
 
   switch(action.type) {
 
+    case 'REQUEST_MOVIES':
+      return {
+        ...state,
+        isFetching: true
+      };
+
+    case 'RECEIVE_MOVIES':
+      return {
+        ...state,
+        dataSource: action.dataSource,
+        movieData: action.movieData,
+        isFetching: false
+      };
+
+    case 'FILTER_MOVIES':
+      return {
+        ...state,
+        dataSource: action.dataSource,
+        filter: action.filter
+      }
+
+    case 'VIEW_CURRENT_MOVIE':
+      return {
+        ...state,
+        currentMovie: action.currentMovie
+      }
+
     default:
-      return previousState;
+      return state;
   }
-};
+}

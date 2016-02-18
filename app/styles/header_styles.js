@@ -1,6 +1,6 @@
 import React, { StyleSheet } from 'react-native';
 
-module.exports = StyleSheet.create({
+export default StyleSheet.create({
   header: {
     flex: 1,
     flexDirection: 'row',
@@ -9,6 +9,7 @@ module.exports = StyleSheet.create({
     backgroundColor: 'grey',
     paddingTop: 20,
     height: 60,
+    overflow: 'hidden',
   },
   filter: {
     flex: 1,

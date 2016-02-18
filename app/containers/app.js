@@ -3,13 +3,13 @@ import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 
-let rootReducer = require('../reducers/combine_reducers');
-let OscarApp = require('./oscar_app');
+import rootReducer from './../reducers/combine_reducers';
+import OscarApp from './oscar_app';
 
 const createStoreWithMiddleware = applyMiddleware(thunk)(createStore);
 const store = createStoreWithMiddleware(rootReducer);
 
-module.exports = class App extends Component {
+export default class App extends Component {
   render() {
     return (
       <Provider store={store}>
