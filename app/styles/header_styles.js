@@ -1,6 +1,6 @@
 import React, { StyleSheet } from 'react-native';
 
-module.exports = StyleSheet.create({
+export default StyleSheet.create({
   header: {
     flex: 1,
     flexDirection: 'row',

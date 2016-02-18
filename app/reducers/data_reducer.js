@@ -1,21 +1,26 @@
-let React = require('react-native');
-let {
+import React,
+{
   ListView,
-} = React;
-
-let types = require('./../constants/action_types');
+} from 'react-native';
+import * as types from './../constants/action_types';
 
 const initialState = {
   dataSource: new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2}),
   movieData: []
 };
 
-module.exports = function data(state, action) {
-  let previousState = (state ? state : initialState);
+export default function(state = initialState, action) {
 
   switch(action.type) {
 
+    case 'UPDATE_MOVIE_STORE':
+      return {
+        ...state,
+        dataSource: action.dataSource,
+        movieData: action.movieData
+      }
+
     default:
-      return previousState;
+      return state;
   }
 };

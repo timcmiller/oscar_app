@@ -6,7 +6,7 @@ import React,
   View,
 } from 'react-native';
 
-let styles = require('../styles/nominations_styles');
+import styles from '../styles/nominations_styles';
 
 module.exports = class Nominations extends React.Component{
 

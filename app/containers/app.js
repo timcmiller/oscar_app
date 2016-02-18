@@ -3,7 +3,7 @@ import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 
-let rootReducer = require('../reducers/combine_reducers');
+import rootReducer from './../reducers/combine_reducers';
 import OscarApp from './oscar_app';
 
 const createStoreWithMiddleware = applyMiddleware(thunk)(createStore);

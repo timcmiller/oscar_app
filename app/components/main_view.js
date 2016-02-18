@@ -9,10 +9,10 @@ import React,
   TouchableHighlight,
 } from 'react-native';
 
-let styles = require('../styles/base_styles');
-let Header = require('./header');
-let MovieInfo = require('./movie_info');
-let lodash = require('lodash');
+import styles from '../styles/base_styles';
+import Header from './header';
+import MovieInfo from './movie_info';
+import lodash from 'lodash';
 
 var REQUEST_URL = 'http://oscarnom-api.herokuapp.com/api/movies';
 // var REQUEST_URL = 'https://raw.githubusercontent.com/facebook/react-native/master/docs/MoviesExample.json';
@@ -28,10 +28,7 @@ module.exports = class MainView extends React.Component {
     super(props);
     this.state = {
       dataSource: new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2}),
-      showMovieInfo: false,
-      showFilter: false,
       movieData: [],
-      showPicture: false,
     };
   }
 
@@ -47,25 +44,26 @@ module.exports = class MainView extends React.Component {
           movieData: responseData.movies,
           dataSource: this.state.dataSource.cloneWithRows(responseData.movies),
         });
-        this.props.actions.isLoaded();
+        this.props.isLoaded();
       })
       .done();
   }
 
   _onPressMovieInfo() {
-    this.setState({ showMovieInfo: !this.state.showMovieInfo, showFilter: false });
+    this.props.selectMovie();
   }
 
   _onPressMovie(movie){
-    this.setState({ showMovieInfo: !this.state.showMovieInfo, showFilter: false, movie });
+    this.setState({ movie });
+    this.props.selectMovie();
   }
 
   _onPicturePress() {
-    this.setState({ showPicture: !this.state.showPicture });
+    this.props.selectPicture();
   }
 
   _onPressFilter(filter) {
-    this.setState({ showFilter: false, showPicture: false, showMovieInfo: false });
+    this.props.selectFilter()
     var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 
     if(!filter) {
@@ -85,7 +83,7 @@ module.exports = class MainView extends React.Component {
   }
 
   expandFilter() {
-    this.setState({ showFilter: !this.state.showFilter });
+    this.props.expandFilters()
   }
 
 
@@ -95,7 +93,7 @@ module.exports = class MainView extends React.Component {
       return this.renderLoadingView();
     }
 
-    if(this.state.showMovieInfo) {
+    if(this.props.showMovieInfo) {
       return this.renderMovieInfo()
     }
 
@@ -105,7 +103,7 @@ module.exports = class MainView extends React.Component {
         renderHeader={() => <Header
           expandFilter={this.expandFilter.bind(this)}
           pressFilter={this._onPressFilter.bind(this)}
-          {...this.state}
+          {...this.props}
           back={'Clear'}
           onBackPress={() => this._onPressFilter()} />}
         renderRow={(movie) => this.renderMovie(movie)}
@@ -127,6 +125,7 @@ module.exports = class MainView extends React.Component {
     return (
       <MovieInfo
       {...this.state}
+      {...this.props}
       _onPressMovieInfo={() => this._onPressMovieInfo()}
       _onPicturePress={() => this._onPicturePress()}
       _onPressFilter={this._onPressFilter.bind(this)}
@@ -138,7 +137,7 @@ module.exports = class MainView extends React.Component {
     var text = ' Nomination';
     if(movie.nominations.length > 1) text += 's';
     return (
-      <View style={styles.container}>
+      <View style={styles.container} key={movie.title}>
         <Image
           source={{uri: movie.posters.thumbnail}}
           style={styles.thumbnail}/>

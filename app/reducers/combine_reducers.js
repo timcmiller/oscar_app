@@ -1,9 +1,11 @@
-let combineReducers = require('redux').combineReducers;
-let dataReducer = require('./data_reducer');
-let userInterfaceReducer = require('./user_interface_reducer');
+import { combineReducers } from 'redux';
+import dataReducer from './data_reducer';
+import userInterfaceReducer from './user_interface_reducer';
 
-module.exports = combineReducers({
-  dataReducer,
-  userInterfaceReducer
+
+const rootReducer = combineReducers({
+  userInterfaceReducer,
+  dataReducer
 });
 
+export default rootReducer;

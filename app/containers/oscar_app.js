@@ -1,10 +1,16 @@
-import React, { Component } from 'react-native';
+import React, {
+  Component,
+  View,
+  Text,
+  Image,
+  TextInput
+} from 'react-native'
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as userInterfaceActions from '../actions/user_interface_actions';
 import * as dataActions from '../actions/data_actions';
 
-let MainView = require('../components/main_view');
+import MainView from '../components/main_view';
 
 class OscarApp extends Component {
   constructor(props) {
@@ -15,22 +21,25 @@ class OscarApp extends Component {
     const { actions } = this.props
     return (
       <MainView
-      {...this.props}
-      actions={actions} />
+      {...this.props}/>
     );
   }
 }
 
 function mapStateToProps(state) {
   return {
-    state: state.userInterfaceActions
+    loaded: state.userInterfaceReducer.loaded,
+    showMovieInfo: state.userInterfaceReducer.showMovieInfo,
+    showFilter: state.userInterfaceReducer.showFilter,
+    showPicture: state.userInterfaceReducer.showPicture
   };
 }
 
-export default connect(state => ({
-  state:  userInterfaceActions
-  }),
-  (dispatch) => ({
-    actions: bindActionCreators(userInterfaceActions, dispatch)
-  })
+function mapDispatchToProps(dispatch){
+  return bindActionCreators({ ...userInterfaceActions, ...dataActions }, dispatch);
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
 )(OscarApp);

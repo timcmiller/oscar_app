@@ -10,9 +10,9 @@ import React,
   TouchableHighlight,
 } from 'react-native';
 
-let styles = require('../styles/movie_info_styles');
-let Nominations = require('./nominations');
-let Header = require('./header');
+import styles from '../styles/movie_info_styles';
+import Nominations from './nominations';
+import Header from './header';
 
 module.exports = class MovieInfo extends React.Component{
 

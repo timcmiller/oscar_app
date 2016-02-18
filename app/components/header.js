@@ -8,7 +8,7 @@ import React,
   TouchableHighlight,
 } from 'react-native';
 
-let styles = require('../styles/header_styles');
+import styles from '../styles/header_styles';
 var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 
 module.exports = class Header extends React.Component{
