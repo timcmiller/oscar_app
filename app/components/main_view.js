@@ -14,7 +14,7 @@ import Header from './header';
 import MovieInfo from './movie_info';
 import lodash from 'lodash';
 
-var REQUEST_URL = 'http://oscarnom-api.herokuapp.com/api/movies';
+const REQUEST_URL = 'http://oscarnom-api.herokuapp.com/api/movies';
 // var REQUEST_URL = 'https://raw.githubusercontent.com/facebook/react-native/master/docs/MoviesExample.json';
 
 var MOCKED_MOVIES_DATA = [
@@ -22,31 +22,14 @@ var MOCKED_MOVIES_DATA = [
 ];
 var MOCK_LIST = ['Best Picture', 'Best Actor', 'Best Support Actor'];
 
-module.exports = class MainView extends React.Component {
+export default class MainView extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {
-      dataSource: new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2}),
-      movieData: [],
-    };
   }
 
   componentDidMount() {
-    this.fetchData();
-  }
-
-  fetchData() {
-    fetch(REQUEST_URL)
-      .then((response) => response.json())
-      .then((responseData) => {
-        this.setState({
-          movieData: responseData.movies,
-          dataSource: this.state.dataSource.cloneWithRows(responseData.movies),
-        });
-        this.props.isLoaded();
-      })
-      .done();
+    this.props.fetchMovies(REQUEST_URL, this.props.dataSource);
   }
 
   _onPressMovieInfo() {
@@ -54,7 +37,7 @@ module.exports = class MainView extends React.Component {
   }
 
   _onPressMovie(movie){
-    this.setState({ movie });
+    this.props.viewCurrentMovie(movie);
     this.props.selectMovie();
   }
 
@@ -67,19 +50,19 @@ module.exports = class MainView extends React.Component {
     var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 
     if(!filter) {
-      this.setState({dataSource: ds.cloneWithRows(this.state.movieData)});
+      this.props.filterMovies(ds.cloneWithRows(this.props.movieData))
       return;
     }
 
     filter = filter.split(':')[0];
 
-    this.setState({ dataSource: ds.cloneWithRows(
-      this.state.movieData.filter(function(movie) {
-        if(lodash.includes(movie.nominations.map(function(nom){
-          return nom.split(':')[0];
-        }), filter)) return movie;
-      })
-    )});
+    this.props.filterMovies(
+      ds.cloneWithRows(
+        this.props.movieData.filter(function(movie) {
+          if(lodash.includes(movie.nominations.map(function(nom) {
+            return nom.split(':')[0];
+          }), filter)) return movie;
+        })));
   }
 
   expandFilter() {
@@ -89,7 +72,7 @@ module.exports = class MainView extends React.Component {
 
   render() {
 
-    if(!this.props.loaded) {
+    if(this.props.isFetching) {
       return this.renderLoadingView();
     }
 
@@ -99,7 +82,7 @@ module.exports = class MainView extends React.Component {
 
     return (
       <ListView
-        dataSource={this.state.dataSource}
+        dataSource={this.props.dataSource}
         renderHeader={() => <Header
           expandFilter={this.expandFilter.bind(this)}
           pressFilter={this._onPressFilter.bind(this)}
@@ -124,7 +107,6 @@ module.exports = class MainView extends React.Component {
   renderMovieInfo() {
     return (
       <MovieInfo
-      {...this.state}
       {...this.props}
       _onPressMovieInfo={() => this._onPressMovieInfo()}
       _onPicturePress={() => this._onPicturePress()}

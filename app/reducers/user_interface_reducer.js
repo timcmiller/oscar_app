@@ -31,19 +31,19 @@ export default function(state = initialState, action) {
         showMovieInfo: false,
         showPicture: false,
         showFilter: false
-      }
+      };
 
     case 'EXPAND_FILTERS':
       return {
         ...state,
         showFilter: !state.showFilter
-      }
+      };
 
     case 'SELECT_PICTURE':
       return {
         ...state,
         showPicture: !state.showPicture
-      }
+      };
 
     default:
       return state;

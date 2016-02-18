@@ -18,7 +18,6 @@ class OscarApp extends Component {
   }
 
   render() {
-    const { actions } = this.props
     return (
       <MainView
       {...this.props}/>
@@ -28,10 +27,8 @@ class OscarApp extends Component {
 
 function mapStateToProps(state) {
   return {
-    loaded: state.userInterfaceReducer.loaded,
-    showMovieInfo: state.userInterfaceReducer.showMovieInfo,
-    showFilter: state.userInterfaceReducer.showFilter,
-    showPicture: state.userInterfaceReducer.showPicture
+    ...state.userInterfaceReducer,
+    ...state.dataReducer
   };
 }
 

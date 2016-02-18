@@ -11,7 +11,7 @@ import React,
 import styles from '../styles/header_styles';
 var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 
-module.exports = class Header extends React.Component{
+export default class Header extends Component{
 
   _onPressFilter() {
     this.props.expandFilter();
