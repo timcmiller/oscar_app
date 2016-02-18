@@ -24,14 +24,14 @@ export default class MovieInfo extends Component{
     return (
       <View style={styles.padding}>
         <Header
+        {...this.props}
         onBackPress={() => this.props._onPressMovieInfo()}
         pressFilter={this.props._onPressFilter}
+        filter={this.props.currentMovie.title}
         back={'Back'}
-        expandFilter={this.props.expandFilter}
-        {...this.props}/>
+        expandFilter={this.props.expandFilter}/>
         <View style={[styles.container, styles.vert]}>
           <View>
-            <Text style={styles.title}>{this.props.currentMovie.title}</Text>
             <Text style={styles.year}>{this.props.currentMovie.nominations.length + text}</Text>
           </View>
           <TouchableHighlight onPress={() => this.props._onPicturePress()}>

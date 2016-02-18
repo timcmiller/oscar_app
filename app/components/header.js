@@ -18,9 +18,16 @@ export default class Header extends Component{
   }
 
   render() {
+    this.smallText = false;
 
     if(this.props.showFilter) {
       return this.renderFilterHeader();
+    }
+    if(this.props.filter.length >= 25) {
+      this.smallText = true;
+      if(this.props.filter.length >= 50) {
+        this.smallestText = true;
+      }
     }
 
     return (
@@ -28,8 +35,8 @@ export default class Header extends Component{
         <Text style={styles.sideText} onPress={() => this.props.onBackPress()}>
           {this.props.back}
         </Text>
-        <Text style={styles.headingText}>
-          88th Academy Awards
+        <Text style={[styles.headingText, this.smallText && {fontSize: 14}, this.smallestText && {fontSize: 8}]}>
+          {this.props.filter}
         </Text>
         <TouchableHighlight onPress={() => this._onPressFilter()}>
           <Text>
@@ -41,14 +48,24 @@ export default class Header extends Component{
   }
 
   renderFilterHeader() {
+
+    this.smallText = false;
+
+    if(this.props.filter.length >= 25) {
+      this.smallText = true;
+      if(this.props.filter.length >= 50) {
+        this.smallestText = true;
+      }
+    }
+
     return (
       <View style={this.props.showFilter && styles.expanded}>
         <View style={styles.header}>
           <Text style={styles.sideText} onPress={() => this.props.onBackPress()}>
             {this.props.back}
           </Text>
-          <Text style={styles.headingText}>
-            88th Academy Awards
+          <Text style={[styles.headingText, this.smallText && {fontSize: 14}, this.smallestText && {fontSize: 8}]}>
+            {this.props.filter}
           </Text>
           <View style={styles.big}>
             <TouchableHighlight onPress={() => this._onPressFilter()} style={[styles.filter, styles.sideText]}>

@@ -4,9 +4,9 @@ import React,
   ListView,
 } from 'react-native';
 
-export function fetchMovies(REQUEST_URL, dataSource, filter) {
+export function fetchMovies(REQUEST_URL, dataSource) {
   return function (dispatch) {
-    dispatch(requestMovies(filter))
+    dispatch(requestMovies())
 
     return fetch(REQUEST_URL)
 
@@ -21,21 +21,17 @@ export function fetchMovies(REQUEST_URL, dataSource, filter) {
   };
 }
 
-export function requestMovies(filter) {
-  filter = filter || '88th Academy Awards';
+export function requestMovies() {
   return {
-    type: types.REQUEST_MOVIES,
-    filter
+    type: types.REQUEST_MOVIES
   };
 }
 
-export function receiveMovies(dataSource, movieData, filter) {
-  filter = filter || '88th Academy Awards';
+export function receiveMovies(dataSource, movieData) {
   return {
     type: types.RECEIVE_MOVIES,
     dataSource,
-    movieData,
-    filter
+    movieData
   };
 }
 

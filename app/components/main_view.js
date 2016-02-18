@@ -15,12 +15,6 @@ import MovieInfo from './movie_info';
 import lodash from 'lodash';
 
 const REQUEST_URL = 'http://oscarnom-api.herokuapp.com/api/movies';
-// var REQUEST_URL = 'https://raw.githubusercontent.com/facebook/react-native/master/docs/MoviesExample.json';
-
-var MOCKED_MOVIES_DATA = [
-  {title: 'Title', year: '2015', posters: {thumbnail: 'http://i.imgur.com/UePbdph.jpg'}},
-];
-var MOCK_LIST = ['Best Picture', 'Best Actor', 'Best Support Actor'];
 
 export default class MainView extends Component {
 
@@ -62,7 +56,7 @@ export default class MainView extends Component {
           if(lodash.includes(movie.nominations.map(function(nom) {
             return nom.split(':')[0];
           }), filter)) return movie;
-        })));
+        })), filter);
   }
 
   expandFilter() {

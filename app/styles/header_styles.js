@@ -9,6 +9,7 @@ export default StyleSheet.create({
     backgroundColor: 'grey',
     paddingTop: 20,
     height: 60,
+    overflow: 'hidden',
   },
   filter: {
     flex: 1,

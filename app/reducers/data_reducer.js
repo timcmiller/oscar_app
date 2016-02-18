@@ -8,6 +8,7 @@ const initialState = {
   dataSource: new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2}),
   movieData: [],
   currentMovie: [],
+  filter: '88th Academy Awards',
   isFetching: true
 };
 
@@ -18,7 +19,6 @@ export default function(state = initialState, action) {
     case 'REQUEST_MOVIES':
       return {
         ...state,
-        filter: action.filter,
         isFetching: true
       };
 
@@ -27,7 +27,6 @@ export default function(state = initialState, action) {
         ...state,
         dataSource: action.dataSource,
         movieData: action.movieData,
-        filter: action.filter,
         isFetching: false
       };
 
