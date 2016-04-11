@@ -1,0 +1,6 @@
+{
+  "packagerPort": 19005,
+  "port": 19004,
+  "ngrok": "http://3a-rmp.timcmiller.oscar-app.exp.direct",
+  "packagerNgrok": "https://packager.3a-rmp.timcmiller.oscar-app.exp.direct"
+}
