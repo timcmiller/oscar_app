@@ -4,5 +4,5 @@
   "strict": false,
   "minify": false,
   "urlType": "exp",
-  "urlRandomness": null
+  "urlRandomness": "3a-rmp"
 }

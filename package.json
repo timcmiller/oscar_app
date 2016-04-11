@@ -1,9 +1,13 @@
 {
-  "name": "hello_worlds",
-  "version": "0.1.1",
-  "description": "Hello Exponent!",
+  "name": "Trophy",
+  "version": "1.0.0",
+  "description": "An Oscar Companion App",
   "main": "main.js",
   "author": null,
+  "private": true,
+   "exp": {
+    "sdkVersion": "4.0.0"
+  },
   "dependencies": {
     "lodash": "^4.2.1",
     "react-native": "exponentjs/react-native#2016-01-02",
